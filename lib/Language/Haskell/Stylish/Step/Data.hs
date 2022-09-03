@@ -31,6 +31,7 @@ import           Prelude                           hiding (init)
 import           Language.Haskell.Stylish.Comments
 import qualified Language.Haskell.Stylish.Editor   as Editor
 import           Language.Haskell.Stylish.GHC
+import           Language.Haskell.Stylish.Ignore
 import           Language.Haskell.Stylish.Module
 import           Language.Haskell.Stylish.Ordering
 import           Language.Haskell.Stylish.Printer
@@ -122,8 +123,9 @@ data DataDecl = MkDataDecl
 
 
 formatDataDecl :: Config -> DataDecl -> Editor.Edits
-formatDataDecl cfg@Config{..} decl@MkDataDecl {..} =
-    Editor.changeLines originalDeclBlock (const printedDecl)
+formatDataDecl cfg@Config{..} decl@MkDataDecl {..}
+  | any isIgnoreComment dataComments = mempty
+  | otherwise = Editor.changeLines originalDeclBlock (const printedDecl)
   where
     originalDeclBlock = Editor.Block
         (GHC.srcSpanStartLine dataLoc)

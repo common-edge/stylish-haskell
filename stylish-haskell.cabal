@@ -94,6 +94,7 @@ Library
     Language.Haskell.Stylish.Config.Cabal
     Language.Haskell.Stylish.Config.Internal
     Language.Haskell.Stylish.Editor
+    Language.Haskell.Stylish.Ignore
     Language.Haskell.Stylish.Ordering
     Language.Haskell.Stylish.Util
     Language.Haskell.Stylish.Verbose
